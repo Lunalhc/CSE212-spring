@@ -213,7 +213,45 @@ public static class RecursionTester {
     
     public static void SolveMaze(Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null)
     {
+        
+        if (currPath == null)
+            currPath = new List<ValueTuple<int, int>>();
+
+        
+        currPath.Add((x, y));
+
+        
+        if (maze.IsEnd(x, y))
+        {
+            
+            Console.WriteLine(currPath.AsString());
+            
+            currPath.RemoveAt(currPath.Count - 1);
+            return;
+        }
+
+        
+        var directions = new (int, int)[] { (0, 1), (1, 0), (0, -1), (-1, 0) };
+
+      
+        foreach (var dir in directions)
+        {
+            int newX = x + dir.Item1;
+            int newY = y + dir.Item2;
+
+            
+            if (maze.IsValidMove(currPath, newX, newY))
+            {
+                
+                SolveMaze(maze, newX, newY, currPath);
+            }
+        }
+
+        
+        currPath.RemoveAt(currPath.Count - 1);
+    }
+
+    }
          
     
-    }
-}
+    
