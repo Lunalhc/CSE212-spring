@@ -1,7 +1,5 @@
 public static class TreesTester {
-    /// <summary>
-    /// Entry point for the Prove 9 tests
-    /// </summary>
+    
     public static void Run() {
         // Sample Test Cases (may not be comprehensive)
         Console.WriteLine("\n=========== PROBLEM 1 TESTS ===========");
@@ -51,15 +49,7 @@ public static class TreesTester {
         Console.WriteLine(tree5.GetHeight()); // 0
     }
 
-    /// <summary>
-    /// Given a sorted list (sorted_list), create a balanced BST.  If the values in the
-    /// sortedNumbers were inserted in order from left to right into the BST, then it
-    /// would resemble a linked list (unbalanced). To get a balanced BST, the
-    /// InsertMiddle function is called to find the middle item in the list to add
-    /// first to the BST. The InsertMiddle function takes the whole list but also takes
-    /// a range (first to last) to consider.  For the first call, the full range of 0 to
-    /// Length-1 used.
-    /// </summary>
+    
     private static BinarySearchTree CreateTreeFromSortedList(int[] sortedNumbers) {
         var bst = new BinarySearchTree(); // Create an empty BST to start with 
         InsertMiddle(sortedNumbers, 0, sortedNumbers.Length - 1, bst);
@@ -97,6 +87,14 @@ public static class TreesTester {
     /// <param name="last">the last index in the sortedNumbers to insert</param>
     /// <param name="bst">the BinarySearchTree in which to insert the values</param>
     private static void InsertMiddle(int[] sortedNumbers, int first, int last, BinarySearchTree bst) {
-        // TODO Start Problem 5
+        if (first > last) {
+        return;
+    }
+
+        int middle = first + (last - first) / 2;
+        bst.Insert(sortedNumbers[middle]);
+
+        InsertMiddle(sortedNumbers, first, middle - 1, bst);
+        InsertMiddle(sortedNumbers, middle + 1, last, bst);
     }
 }
